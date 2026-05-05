@@ -121,6 +121,8 @@
     "enFXzMoveType.type2|block": "Назад",
     "enFXzMoveType.type3|block": "Поворот влево",
     "enFXzMoveType.type4|block": "Поворот вправо",
-    "enFXzMoveType.type5|block": "Стоп"
+    "enFXzMoveType.type5|block": "Стоп",
+
+    "AI_Vision.getFaceRecognitionID|block": "ID распознанного лица"
     
 }

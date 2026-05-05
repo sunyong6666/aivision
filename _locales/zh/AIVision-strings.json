@@ -121,5 +121,7 @@
     "enFXzMoveType.type2|block": "后退",
     "enFXzMoveType.type3|block": "左转",
     "enFXzMoveType.type4|block": "右转",
-    "enFXzMoveType.type5|block": "停止"
+    "enFXzMoveType.type5|block": "停止",
+
+    "AI_Vision.getFaceRecognitionID|block": "识别到的人脸ID"
 }

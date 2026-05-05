@@ -571,7 +571,7 @@ namespace AI_Vision {
     }
 
     //% blockId=getFaceRecognitionID
-    //% block="识别到的人脸id"
+    //% block="Recognized face ID"
     //% group="FaceID" weight=2
     export function getFaceRecognitionID(): number {
         sendOrder(120, 2)//只判断第一个
