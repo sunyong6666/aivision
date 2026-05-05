@@ -148,19 +148,19 @@ enum enFind20Class {
     type19 = 19,
 }
 enum enFaceNum{
-    //% block="Face 0"
-    type1 = 2,
     //% block="Face 1"
-    type2 = 3,
+    type1 = 2,
     //% block="Face 2"
-    type3 = 4,
+    type2 = 3,
     //% block="Face 3"
+    type3 = 4,
+    //% block="Face 4"
     type4 = 5,
 }
 enum enLearnClass {
-    //% block="Class 0"
-    type1 = 0,
     //% block="Class 1"
+    type1 = 0,
+    //% block="Class 2"
     type2 = 1
     /*
     //% block="类别2"
@@ -538,7 +538,7 @@ namespace AI_Vision {
     //--------------------------人脸识别----------------------
     //% blockId=setFaceRecognition
     //% block="Learn current face"
-    //% group="FaceID" weight=4
+    //% group="FaceID" weight=6
     export function setFaceRecognition(): void {
         let buf4 = pins.createBuffer(2);
         buf4[0] = 120 + 6
@@ -548,7 +548,7 @@ namespace AI_Vision {
 
     //% blockId=getFaceNum
     //% block="Number of recognized faces"
-    //% group="FaceID" weight=3
+    //% group="FaceID" weight=5
     export function getFaceNum(): number {
         sendOrder(120, 0)//183
         let GetBuff17 = pins.createBuffer(1)
@@ -558,7 +558,7 @@ namespace AI_Vision {
 
     //% blockId=getFaceRecognition
     //% block="Is a learned face detected?"
-    //% group="FaceID" weight=2
+    //% group="FaceID" weight=3
     export function getFaceRecognition(): boolean {
         sendOrder(120, 1)//183
         let GetBuff162 = pins.createBuffer(1)
@@ -568,6 +568,16 @@ namespace AI_Vision {
             return false
         }
         return true
+    }
+
+    //% blockId=getFaceRecognitionID
+    //% block="识别到的人脸id"
+    //% group="FaceID" weight=2
+    export function getFaceRecognitionID(): number {
+        sendOrder(120, 2)//只判断第一个
+        let GetBuff = pins.createBuffer(9)
+        GetBuff = pins.i2cReadBuffer(ADDRESS, 9)
+        return GetBuff.getNumber(NumberFormat.UInt8BE, 0)
     }
 
     //% blockId=getFaceRecognitionPos
