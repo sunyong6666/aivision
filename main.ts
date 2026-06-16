@@ -159,9 +159,9 @@ enum enFaceNum{
 }
 enum enLearnClass {
     //% block="Class 1"
-    type1 = 0,
+    type1 = 1,
     //% block="Class 2"
-    type2 = 1
+    type2 = 2
     /*
     //% block="类别2"
     type3 = 2,
