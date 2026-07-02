@@ -675,93 +675,13 @@ namespace AI_Vision {
         return combinedData72
     }
 
-    //--------------------------对话模式----------------------
-    //% blockId=getXzMode
-    //% block="Current state is %choiceXzMode ?"
-    //% group="AI Chat" weight=4
-    export function getXzMode(choiceXzMode: enFXzMode): boolean {
-        sendOrder(165, 4)
-        let GetBuff = pins.createBuffer(1)
-        GetBuff = pins.i2cReadBuffer(ADDRESS, 1);
-        if (GetBuff.getNumber(NumberFormat.UInt8BE, 0) == choiceXzMode) {
-            return true
-        }
-        return false
-    }
-    //% blockId=getXzMoveType
-    //% block="Detected motion command %choiceXzMoveType ?"
-    //% group="AI Chat" weight=3
-    export function getXzMoveType(choiceXzMoveType: enFXzMoveType): boolean {
-        sendOrder(165, 5)
-        let GetBuff = pins.createBuffer(2)
-        GetBuff = pins.i2cReadBuffer(ADDRESS, 2);
-        if (GetBuff.getNumber(NumberFormat.UInt8BE, 0) == choiceXzMoveType) {
-            return true
-        }
-        return false
-    }
-    //% blockId=getXzMoveSpeed
-    //% block="Detected motion speed"
-    //% group="AI Chat" weight=2
-    export function getXzMoveSpeed(): number {
-        sendOrder(165, 5)
-        let GetBuff = pins.createBuffer(2)
-        GetBuff = pins.i2cReadBuffer(ADDRESS, 2);
-        return GetBuff.getNumber(NumberFormat.UInt8BE, 1)
-    }
-    //% blockId=getCustom
-    //% block="Detected custom command"
-    //% group="AI Chat" weight=1
-    export function getCustom(): number {
-        sendOrder(165, 6)
-        let GetBuff = pins.createBuffer(1)
-        GetBuff = pins.i2cReadBuffer(ADDRESS, 1);
-        return GetBuff.getNumber(NumberFormat.UInt8BE, 0)
-    }
-
-    //--------------------------WIFI图传----------------------
-    //% blockId=getWIFIJoystick
-    //% block="Get joystick position %choiceXY"
-    //% group="WiFi Stream" weight=3
-    export function getWIFIJoystick(choiceXY: enXY): number {
-        sendOrder(165, 7)
-        let buf = pins.i2cReadBuffer(ADDRESS, 2)
-        let v = buf.getNumber(NumberFormat.UInt8BE, choiceXY)
-        if (v > 127) {
-            v = v - 256
-        }
-        return v
-    }
-
-    //% blockId=getWIFIButton
-    //% block="Button %choiceButton pressed ?"
-    //% group="WiFi Stream" weight=2
-    export function getWIFIButton(choiceButton: enButton): boolean {
-        sendOrder(165, 8)
-        let GetBuff = pins.createBuffer(1)
-        GetBuff = pins.i2cReadBuffer(ADDRESS, 1);
-        return !!(GetBuff.getNumber(NumberFormat.Int8BE, 0) & choiceButton)
-    }
-
-
-    //% blockId=getWIFIKeyboard
-    //% block="Keyboard %choiceKeyboard pressed ?"
-    //% group="WiFi Stream" weight=1
-    export function getWIFIKeyboard(choiceKeyboard: enKeyboard): boolean {
-        sendOrder(165, 9)
-        let GetBuff = pins.createBuffer(1)
-        GetBuff = pins.i2cReadBuffer(ADDRESS, 1);
-        return !!(GetBuff.getNumber(NumberFormat.UInt8BE, 0) & choiceKeyboard)
-    }
-
-
     //--------------------------设置----------------------
     //% blockId=openfilllight
     //% block="%open fill light"
     //% group="Settings" weight=4
     export function openfilllight(open: enOpen): void {
         let buf24 = pins.createBuffer(2);
-        buf24[0] = 180 + 1
+        buf24[0] = 165 + 1
         buf24[1] = open
         pins.i2cWriteBuffer(ADDRESS, buf24);
     }
@@ -772,7 +692,7 @@ namespace AI_Vision {
     export function setfilllight(light: number): void {
         light = Math.clamp(0, 10, light)
         let buf24 = pins.createBuffer(2);
-        buf24[0] = 180 + 0
+        buf24[0] = 165 + 0
         buf24[1] = light
         pins.i2cWriteBuffer(ADDRESS, buf24);
     }
@@ -780,7 +700,7 @@ namespace AI_Vision {
     //% block="Fill light brightness"
     //% group="Settings" weight=2
     export function getfilllight(): number {
-        sendOrder(180, 0)
+        sendOrder(165, 0)
         let GetBuff20 = pins.createBuffer(1)
         GetBuff20 = pins.i2cReadBuffer(ADDRESS, 1);
         return GetBuff20.getNumber(NumberFormat.UInt8BE, 0)
